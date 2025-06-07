@@ -1,0 +1,21 @@
+[package]
+name = "sqlx-to-multiple-entities-poc"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+chrono = "0.4"
+dotenvy.workspace = true
+serde.workspace = true
+sqlx = { version = "0.8", features = [
+  "runtime-tokio",
+  "tls-rustls-ring-native-roots",
+  "postgres",
+  "derive",
+  "macros",
+  "migrate",
+  "chrono",
+  "uuid"
+] }
+tokio = { version = "1.44", features = ["fs", "io-std", "test-util", "rt", "rt-multi-thread", "macros"] }
+uuid = "1.17.0"
