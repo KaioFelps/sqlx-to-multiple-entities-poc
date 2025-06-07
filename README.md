@@ -31,6 +31,10 @@ cp .env.sample .env
 docker compose up -d # inicializa o Postgres
 ```
 
+Utilize um programa como [BeeKeeper](https://www.beekeeperstudio.io/) para adicionar algumas tuplas na
+tabela "usuario" antes de rodar, caso contrário o programa entrará em pânico: ele espera ao menos 1
+usuário *aluno* válido e ao menos 1 usuário *professor* válido.
+
 ### Rodando
 Basta utilizar o comando `cargo run` para baixar as dependências, compilar o programa e rodá-lo.
 
