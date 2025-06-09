@@ -6,7 +6,7 @@ use std::str::FromStr;
 use sqlx::postgres::PgConnectOptions;
 use sqlx::{ConnectOptions, query_as};
 
-use crate::entidades::aluno::Aluno;
+use crate::entidades::aluno::{Aluno, UsuarioAluno};
 use crate::entidades::professor::Professor;
 use crate::entidades::usuario::Usuario;
 use crate::enums::cargo::Cargo;
@@ -98,6 +98,39 @@ async fn main() -> std::io::Result<()> {
     .unwrap();
 
     println!("{usuario_como_professor:#?}");
+
+    // Busca por entidades compostas funciona somente com a função `query_as`
+    // (observe que não é o macro `query_as!`).
+    // desde que a esturtura aninhada seja decorada com o atributo `sqlx(flatten)`.
+    // nesse caso também não há como utilizar o `!` para garantir valores não-nulos
+    // nem como parsear diretamente para um tipo rust.
+    // Apesar disso, esses aparatos não são necessários se a query SQL estiver correta:
+    // já garantimos que `registro_aluno` e `periodo` não serão nulos na cláusula `WHERE`.
+    let aluno_composto: UsuarioAluno = query_as(
+        r#"SELECT
+            id,
+            nome,
+            email,
+            senha_hash,
+            curriculo_lattes,
+            ultimo_login_em,
+            atualizado_em,
+            criado_em,
+            registro_aluno,
+            periodo
+        FROM usuario
+        WHERE
+            usuario.cargo = 'aluno'
+            AND usuario.registro_aluno IS NOT NULL
+            AND usuario.periodo IS NOT NULL
+        LIMIT 1
+        "#,
+    )
+    .fetch_one(&mut db_conn)
+    .await
+    .unwrap();
+
+    println!("{aluno_composto:#?}");
 
     Ok(())
 }
