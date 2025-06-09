@@ -21,6 +21,10 @@ este possui o cargo "aluno".
 Não obstante, caso realmente seja necessário realizar asserções mais complexas, basta pedir o [`Usuario`]
 de fato e atuar sobre a totalidade do modelo "usuario".
 
+É possível, também, utilizar composição para representar as diferentes classes! Confira a estrutura
+[`UsuarioAluno`](./src/entidades/aluno.rs) que é composta pela entidade
+[`UsuarioMinimo`](./src/entidades/usuario.rs) (uma versão mínima da entidade `Usuario` comum).
+
 ## Como Rodar o Programa
 ### Requisitos
 - [docker](https://docs.docker.com/get-started/get-docker/)
