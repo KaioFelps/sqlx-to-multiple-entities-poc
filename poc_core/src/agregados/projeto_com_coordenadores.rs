@@ -46,7 +46,6 @@ pub struct ProjetoComCoordenadoresTupla(
 
 impl From<ProjetoComCoordenadoresTupla> for ProjetoComCoordenadores {
     fn from(value: ProjetoComCoordenadoresTupla) -> Self {
-        dbg!(&value);
         let ProjetoComCoordenadoresTupla(
             p_id,
             p_title,
