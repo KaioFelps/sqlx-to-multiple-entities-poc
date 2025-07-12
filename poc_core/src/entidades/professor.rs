@@ -2,7 +2,7 @@ use chrono::NaiveDateTime;
 use sqlx::prelude::FromRow;
 use uuid::Uuid;
 
-use crate::enums::cargo::Cargo;
+use crate::{entidades::usuario::Usuario, enums::cargo::Cargo};
 
 #[derive(Debug, FromRow)]
 pub struct Professor {
@@ -16,4 +16,20 @@ pub struct Professor {
     pub ultimo_login_em: Option<NaiveDateTime>,
     pub atualizado_em: Option<NaiveDateTime>,
     pub criado_em: NaiveDateTime,
+}
+
+impl Professor {
+    pub fn from_usuario(usuario: &Usuario) -> Self {
+        Self {
+            atualizado_em: usuario.atualizado_em,
+            cargo: usuario.cargo.clone(),
+            criado_em: usuario.criado_em,
+            curriculo_lattes: usuario.curriculo_lattes.clone(),
+            email: usuario.email.clone(),
+            id: usuario.id,
+            nome: usuario.nome.clone(),
+            senha_hash: usuario.senha_hash.clone(),
+            ultimo_login_em: usuario.ultimo_login_em,
+        }
+    }
 }
