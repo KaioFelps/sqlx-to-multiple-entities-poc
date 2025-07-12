@@ -1,30 +1,16 @@
-#![allow(unused)]
+use sqlx::query_as;
+use utils::setup_and_get_db_conn;
 
-use std::env;
-use std::str::FromStr;
+use poc_core::entidades::aluno::{Aluno, UsuarioAluno};
+use poc_core::entidades::professor::Professor;
+use poc_core::entidades::usuario::Usuario;
+use poc_core::enums::cargo::Cargo;
 
-use sqlx::postgres::PgConnectOptions;
-use sqlx::{ConnectOptions, query_as};
-
-use crate::entidades::aluno::{Aluno, UsuarioAluno};
-use crate::entidades::professor::Professor;
-use crate::entidades::usuario::Usuario;
-use crate::enums::cargo::Cargo;
-
-mod entidades;
-mod enums;
+pub mod sqlx_queries;
 
 #[tokio::main]
 async fn main() -> std::io::Result<()> {
-    dotenvy::dotenv().unwrap();
-
-    let mut db_conn = PgConnectOptions::from_str(&env::var("DATABASE_URL").expect(
-        "É necessária uma variável de ambiente \"DATABASE_URL\" para inicializar a aplicação.",
-    ))
-    .unwrap()
-    .connect()
-    .await
-    .unwrap();
+    let mut db_conn = setup_and_get_db_conn().await;
 
     let usuario = query_as!(
         Usuario,
@@ -102,9 +88,7 @@ async fn main() -> std::io::Result<()> {
     // Busca por entidades compostas funciona somente com a função `query_as`
     // (observe que não é o macro `query_as!`).
     // desde que a esturtura aninhada seja decorada com o atributo `sqlx(flatten)`.
-    // nesse caso também não há como utilizar o `!` para garantir valores não-nulos
-    // nem como parsear diretamente para um tipo rust.
-    // Apesar disso, esses aparatos não são necessários se a query SQL estiver correta:
+    // nesse caso também não há como utilizar o `!` para garantir valores não-nulos // nem como parsear diretamente para um tipo rust.  // Apesar disso, esses aparatos não são necessários se a query SQL estiver correta:
     // já garantimos que `registro_aluno` e `periodo` não serão nulos na cláusula `WHERE`.
     let aluno_composto: UsuarioAluno = query_as(
         r#"SELECT

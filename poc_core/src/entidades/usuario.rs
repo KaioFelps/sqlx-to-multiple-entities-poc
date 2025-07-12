@@ -4,8 +4,6 @@ use uuid::Uuid;
 
 use crate::enums::cargo::Cargo;
 
-use super::{aluno::Aluno, professor::Professor};
-
 #[derive(Debug, FromRow)]
 pub struct Usuario {
     pub id: Uuid,
