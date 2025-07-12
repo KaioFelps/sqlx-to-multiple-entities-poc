@@ -1,4 +1,4 @@
-use chrono::{DateTime, Utc};
+use chrono::NaiveDateTime;
 use sqlx::prelude::FromRow;
 use uuid::Uuid;
 
@@ -7,5 +7,5 @@ pub struct Projeto {
     pub id: Uuid,
     pub title: String,
     pub content: String,
-    pub created_at: DateTime<Utc>,
+    pub created_at: NaiveDateTime,
 }
