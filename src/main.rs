@@ -10,6 +10,7 @@ use poc_core::enums::cargo::Cargo;
 async fn main() -> std::io::Result<()> {
     let mut db_conn = setup_and_get_db_conn().await;
 
+    // region: --- Busca usuário como o modelo do usuário normal
     let usuario = query_as!(
         Usuario,
         r#"SELECT 
@@ -31,7 +32,9 @@ async fn main() -> std::io::Result<()> {
     .unwrap();
 
     println!("{usuario:#?}");
+    // endregion
 
+    // region: --- Busca usuário como struct `Aluno`, um subset de `Usuario`
     let usuario_como_aluno = query_as!(
         Aluno,
         r#"SELECT
@@ -58,7 +61,9 @@ async fn main() -> std::io::Result<()> {
     .unwrap();
 
     println!("{usuario_como_aluno:#?}");
+    // endregion
 
+    // region: --- Busca usuário como struct `Professor`, um subset de `Usuario`
     let usuario_como_professor = query_as!(
         Professor,
         r#"SELECT
@@ -82,7 +87,9 @@ async fn main() -> std::io::Result<()> {
     .unwrap();
 
     println!("{usuario_como_professor:#?}");
+    // endregion
 
+    // region: --- Busca usuário como struct `Aluno`, que é **composto** por um `UsuarioMinimo`
     // Busca por entidades compostas funciona somente com a função `query_as`
     // (observe que não é o macro `query_as!`).
     // desde que a esturtura aninhada seja decorada com o atributo `sqlx(flatten)`.
@@ -113,6 +120,7 @@ async fn main() -> std::io::Result<()> {
     .unwrap();
 
     println!("{aluno_composto:#?}");
+    // endregion
 
     Ok(())
 }
