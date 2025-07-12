@@ -1,10 +1,12 @@
 use sqlx::query_as;
+use sqlx_queries::projetos::ProjetosRepo;
 use utils::setup_and_get_db_conn;
 
 use poc_core::entidades::aluno::{Aluno, UsuarioAluno};
 use poc_core::entidades::professor::Professor;
 use poc_core::entidades::usuario::Usuario;
 use poc_core::enums::cargo::Cargo;
+use uuid::uuid;
 
 #[tokio::main]
 async fn main() -> std::io::Result<()> {
@@ -120,6 +122,14 @@ async fn main() -> std::io::Result<()> {
     .unwrap();
 
     println!("{aluno_composto:#?}");
+    // endregion
+
+    // region: --- Busca agregação de projeto com coordenador e vice-coordenador
+    let projeto = ProjetosRepo { db: &mut db_conn }
+        .encontrar_projeto_com_coordenadores_por_id(&uuid!("23475197-8052-4711-b962-893d07a288aa"))
+        .await;
+
+    dbg!(projeto);
     // endregion
 
     Ok(())

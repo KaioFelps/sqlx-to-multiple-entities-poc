@@ -1475,6 +1475,7 @@ dependencies = [
  "poc_core",
  "serde",
  "sqlx",
+ "sqlx_queries",
  "tokio",
  "utils",
  "uuid",

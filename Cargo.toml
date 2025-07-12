@@ -35,3 +35,4 @@ tokio.workspace = true
 uuid.workspace = true
 utils.workspace = true
 poc_core.workspace = true
+sqlx_queries.workspace = true

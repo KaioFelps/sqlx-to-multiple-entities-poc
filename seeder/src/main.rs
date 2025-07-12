@@ -1,3 +1,4 @@
+mod projetos;
 mod usuarios;
 
 #[tokio::main]
@@ -10,5 +11,7 @@ async fn main() {
         .await
         .expect("Não foi possível resetar o banco de dados.");
 
-    usuarios::inserir_usuarios(&mut db_conn).await;
+    let (_aluno, mario, sara) = usuarios::inserir_usuarios(&mut db_conn).await;
+
+    projetos::inserir_projetos(&mut db_conn, &mario, &sara).await;
 }
