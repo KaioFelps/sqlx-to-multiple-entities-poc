@@ -6,8 +6,6 @@ use poc_core::entidades::professor::Professor;
 use poc_core::entidades::usuario::Usuario;
 use poc_core::enums::cargo::Cargo;
 
-pub mod sqlx_queries;
-
 #[tokio::main]
 async fn main() -> std::io::Result<()> {
     let mut db_conn = setup_and_get_db_conn().await;

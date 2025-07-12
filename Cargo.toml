@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [workspace]
-members = [ "poc_core", "utils" ]
+members = [ "poc_core", "sqlx_queries", "utils", "seeder" ]
 
 [workspace.dependencies]
 chrono = "0.4"
@@ -21,7 +21,10 @@ sqlx = { version = "0.8", features = [
   "uuid"
 ] }
 tokio = { version = "1.44", features = ["fs", "io-std", "test-util", "rt", "rt-multi-thread", "macros"] }
-uuid = "1.17.0"
+uuid = { version = "1.17.0", features = ["v4"] }
+poc_core.path = "poc_core"
+utils.path = "utils"
+sqlx_queries.path = "sqlx_queries"
 
 [dependencies]
 chrono.workspace = true
@@ -30,5 +33,5 @@ serde.workspace = true
 sqlx.workspace = true
 tokio.workspace = true
 uuid.workspace = true
-utils.path = "utils"
-poc_core.path = "poc_core"
+utils.workspace = true
+poc_core.workspace = true

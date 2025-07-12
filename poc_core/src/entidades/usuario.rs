@@ -1,4 +1,4 @@
-use chrono::NaiveDateTime;
+use chrono::{NaiveDateTime, Utc};
 use sqlx::prelude::FromRow;
 use uuid::Uuid;
 
@@ -31,4 +31,24 @@ pub struct UsuarioMinimo {
     pub ultimo_login_em: Option<NaiveDateTime>,
     pub atualizado_em: Option<NaiveDateTime>,
     pub criado_em: NaiveDateTime,
+}
+
+impl UsuarioMinimo {
+    pub fn new(
+        nome: String,
+        curriculo_lattes: Option<String>,
+        email: String,
+        senha_hash: String,
+    ) -> Self {
+        Self {
+            id: Uuid::new_v4(),
+            nome,
+            senha_hash,
+            curriculo_lattes,
+            email,
+            ultimo_login_em: None,
+            criado_em: Utc::now().naive_utc(),
+            atualizado_em: None,
+        }
+    }
 }

@@ -23,7 +23,7 @@ pub struct Aluno {
 #[derive(Debug, FromRow)]
 pub struct UsuarioAluno {
     #[sqlx(flatten)]
-    usuario: UsuarioMinimo,
-    registro_aluno: String,
-    periodo: i16,
+    pub usuario: UsuarioMinimo,
+    pub registro_aluno: String,
+    pub periodo: i16,
 }

@@ -29,15 +29,20 @@ de fato e atuar sobre a totalidade do modelo "usuario".
 ### Requisitos
 - [docker](https://docs.docker.com/get-started/get-docker/)
 - [rust + cargo](https://www.rust-lang.org/tools/install)
+- [sqlx cli](https://crates.io/crates/sqlx-cli)
 
 ```bash
 cp .env.sample .env
 docker compose up -d # inicializa o Postgres
+sqlx migrate run # roda as migrações pra montar o banco de dados
 ```
 
 Utilize um programa como [BeeKeeper](https://www.beekeeperstudio.io/) para adicionar algumas tuplas na
 tabela "usuario" antes de rodar, caso contrário o programa entrará em pânico: ele espera ao menos 1
 usuário *aluno* válido e ao menos 1 usuário *professor* válido.
+
+Se preferir, utilize a aplicação binária [seeder](./seeder/) disponível neste repositório para inserir
+as tuplas.
 
 ### Rodando
 Basta utilizar o comando `cargo run` para baixar as dependências, compilar o programa e rodá-lo.
