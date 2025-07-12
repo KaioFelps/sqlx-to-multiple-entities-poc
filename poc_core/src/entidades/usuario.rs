@@ -21,7 +21,7 @@ pub struct Usuario {
     pub periodo: Option<i16>,
 }
 
-#[derive(Debug, FromRow)]
+#[derive(Debug, FromRow, Clone)]
 pub struct UsuarioMinimo {
     pub id: Uuid,
     pub nome: String,
