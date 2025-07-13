@@ -2,7 +2,7 @@ use chrono::NaiveDateTime;
 use sqlx::prelude::FromRow;
 use uuid::Uuid;
 
-#[derive(Debug, FromRow)]
+#[derive(Debug, FromRow, Clone)]
 pub struct Projeto {
     pub id: Uuid,
     pub title: String,

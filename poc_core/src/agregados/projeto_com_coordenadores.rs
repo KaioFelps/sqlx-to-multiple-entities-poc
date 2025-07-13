@@ -3,7 +3,7 @@ use uuid::Uuid;
 
 use crate::entidades::{professor::Professor, projeto::Projeto};
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct ProjetoComCoordenadores {
     pub projeto: Projeto,
 

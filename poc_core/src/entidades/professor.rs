@@ -4,7 +4,7 @@ use uuid::Uuid;
 
 use crate::{entidades::usuario::Usuario, enums::cargo::Cargo};
 
-#[derive(Debug, FromRow)]
+#[derive(Debug, FromRow, Clone)]
 pub struct Professor {
     pub id: Uuid,
     pub nome: String,
