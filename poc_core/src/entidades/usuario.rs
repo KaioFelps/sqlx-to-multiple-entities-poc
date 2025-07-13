@@ -2,7 +2,7 @@ use chrono::{NaiveDateTime, Utc};
 use sqlx::prelude::FromRow;
 use uuid::Uuid;
 
-use crate::enums::cargo::Cargo;
+use crate::{enums::cargo::Cargo, types::NullableU8};
 
 #[derive(Debug, FromRow)]
 pub struct Usuario {
@@ -16,9 +16,8 @@ pub struct Usuario {
     pub atualizado_em: Option<NaiveDateTime>,
     pub criado_em: NaiveDateTime,
     pub registro_aluno: Option<String>,
-    // Não pode ser u8 (o que seria muito apropriado) por limitações do mapeamento da resposta
-    // do postgres para a entidade
-    pub periodo: Option<i16>,
+    #[sqlx(try_from = "Option<i16>")]
+    pub periodo: NullableU8,
 }
 
 #[derive(Debug, FromRow, Clone)]
