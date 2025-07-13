@@ -7,7 +7,11 @@ use sqlx::PgConnection;
 use sqlx_queries::projetos::ProjetosRepo;
 use uuid::uuid;
 
-pub async fn inserir_projetos(db: &mut PgConnection, coordenador: &Usuario, vice_coord: &Usuario) {
+pub async fn inserir_projetos(
+    db: &mut PgConnection,
+    coordenador: &Usuario,
+    vice_coord: &Usuario,
+) -> (ProjetoComCoordenadores, ProjetoComCoordenadores) {
     let projeto_sem_vice = ProjetoComCoordenadores {
         projeto: Projeto {
             id: uuid!("f0169deb-5653-4274-97cd-53c4c2f43c57"),
@@ -36,6 +40,8 @@ pub async fn inserir_projetos(db: &mut PgConnection, coordenador: &Usuario, vice
 
     printar_projeto(&projeto_sem_vice);
     printar_projeto(&projeto_com_vice);
+
+    (projeto_com_vice, projeto_sem_vice)
 }
 
 fn printar_projeto(projeto: &ProjetoComCoordenadores) {
