@@ -1,6 +1,4 @@
-use poc_core::agregados::projeto_com_coordenadores::{
-    ProjetoComCoordenadores, ProjetoComCoordenadoresTupla,
-};
+use poc_core::agregados::projeto_com_coordenadores::ProjetoComCoordenadores;
 use sqlx::PgConnection;
 use uuid::Uuid;
 
@@ -43,30 +41,30 @@ impl ProjetosRepo<'_> {
         &mut self,
         id_projeto: &Uuid,
     ) -> Option<ProjetoComCoordenadores> {
-        let resultado : Option<ProjetoComCoordenadoresTupla> = sqlx::query_as(
+        sqlx::query_as(
             r#"SELECT
-                p.id,
-                p.title,
-                p.content,
-                p.created_at,
-                coorde.id,
-                coorde.nome,
-                coorde.email,
-                coorde.senha_hash,
-                coorde.curriculo_lattes,
-                coorde.cargo,
-                coorde.ultimo_login_em,
-                coorde.atualizado_em,
-                coorde.criado_em,
-                vice.id,
-                vice.nome,
-                vice.email,
-                vice.senha_hash,
-                vice.curriculo_lattes,
-                vice.cargo,
-                vice.ultimo_login_em,
-                vice.atualizado_em,
-                vice.criado_em
+                p.id as p_id,
+                p.title as p_title,
+                p.content as p_content,
+                p.created_at as p_created_at,
+                coorde.id as coorde_id,
+                coorde.nome as coorde_nome,
+                coorde.email as coorde_email,
+                coorde.senha_hash as coorde_senha_hash,
+                coorde.curriculo_lattes as coorde_curriculo_lattes,
+                coorde.cargo as coorde_cargo,
+                coorde.ultimo_login_em as coorde_ultimo_login_em,
+                coorde.atualizado_em as coorde_atualizado_em,
+                coorde.criado_em as coorde_criado_em,
+                vice.id as vice_id,
+                vice.nome as vice_nome,
+                vice.email as vice_email,
+                vice.senha_hash as vice_senha_hash,
+                vice.curriculo_lattes as vice_curriculo_lattes,
+                vice.cargo as vice_cargo,
+                vice.ultimo_login_em as vice_ultimo_login_em,
+                vice.atualizado_em as vice_atualizado_em,
+                vice.criado_em as vice_criado_em
             FROM projeto p
             INNER JOIN projeto_coordenadores rel_coord ON rel_coord.id_projeto = p.id AND rel_coord.tipo_coord = 'coord'
             INNER JOIN usuario coorde ON coorde.id = rel_coord.id_coord
@@ -77,9 +75,7 @@ impl ProjetosRepo<'_> {
             .bind(id_projeto)
             .fetch_optional(&mut *self.db)
             .await
-            .unwrap_or_else(|err| panic!("{err}"));
-
-        resultado.map(ProjetoComCoordenadores::from)
+            .unwrap_or_else(|err| panic!("{err}"))
     }
 }
 
