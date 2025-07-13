@@ -1,5 +1,6 @@
 use sqlx::query_as;
 use sqlx_queries::projetos::ProjetosRepo;
+use sqlx_queries::vagas::VagasRepo;
 use utils::setup_and_get_db_conn;
 
 use poc_core::entidades::aluno::{Aluno, UsuarioAluno};
@@ -130,6 +131,18 @@ async fn main() -> std::io::Result<()> {
         .await;
 
     dbg!(projeto);
+    // endregion
+
+    // region: --- Busca uma vaga completa pelo seu ID
+    let vaga = VagasRepo { db: &mut db_conn }
+        .buscar_vaga_por_id(&uuid!("dc2748ae-ac44-489b-afc1-5eb946310a1e"))
+        .await;
+    dbg!(vaga);
+    // endregion
+
+    // region: --- Busca Vaga de um projeto com agregado e tudo mais
+    let vagas = VagasRepo { db: &mut db_conn }.buscar_vagas().await;
+    dbg!(vagas);
     // endregion
 
     Ok(())
