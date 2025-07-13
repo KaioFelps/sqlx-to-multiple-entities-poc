@@ -37,7 +37,7 @@ impl UsuariosRepo<'_> {
             usuario.ultimo_login_em.as_ref(),
             usuario.atualizado_em.as_ref(),
             &usuario.criado_em,
-            usuario.periodo.as_ref(),
+            usuario.periodo.to_opt_i16(),
             usuario.registro_aluno.as_ref()
         )
         .execute(&mut *self.db_conn)
