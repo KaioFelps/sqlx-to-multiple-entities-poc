@@ -1,5 +1,3 @@
-use std::num::IntErrorKind;
-
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -39,20 +37,18 @@ impl From<NullableU8> for Option<u8> {
     }
 }
 
-impl TryFrom<Option<i16>> for NullableU8 {
-    type Error = IntErrorKind;
-
-    fn try_from(value: Option<i16>) -> Result<Self, Self::Error> {
-        Ok(match value {
+impl From<Option<i16>> for NullableU8 {
+    fn from(value: Option<i16>) -> Self {
+        match value {
             None => Self(None),
             Some(value) => {
                 if value < 0 || value >= u8::MAX as i16 {
-                    return Err(IntErrorKind::InvalidDigit);
+                    panic!("Tried to parse an invalid u8 as a `NullabeU8`.");
                 }
 
                 Self(Some(value as u8))
             }
-        })
+        }
     }
 }
 
