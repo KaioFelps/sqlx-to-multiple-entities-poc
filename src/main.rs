@@ -34,7 +34,7 @@ async fn main() -> std::io::Result<()> {
     .await
     .unwrap();
 
-    println!("{usuario:#?}");
+    dbg!(&usuario);
     // endregion
 
     // region: --- Busca usuário como struct `Aluno`, um subset de `Usuario`
@@ -63,7 +63,7 @@ async fn main() -> std::io::Result<()> {
     .await
     .unwrap();
 
-    println!("{usuario_como_aluno:#?}");
+    dbg!(&usuario_como_aluno);
     // endregion
 
     // region: --- Busca usuário como struct `Professor`, um subset de `Usuario`
@@ -89,7 +89,7 @@ async fn main() -> std::io::Result<()> {
     .await
     .unwrap();
 
-    println!("{usuario_como_professor:#?}");
+    dbg!(&usuario_como_professor);
     // endregion
 
     // region: --- Busca usuário como struct `Aluno`, que é **composto** por um `UsuarioMinimo`
@@ -122,7 +122,7 @@ async fn main() -> std::io::Result<()> {
     .await
     .unwrap();
 
-    println!("{aluno_composto:#?}");
+    dbg!(&aluno_composto);
     // endregion
 
     // region: --- Busca agregação de projeto com coordenador e vice-coordenador
