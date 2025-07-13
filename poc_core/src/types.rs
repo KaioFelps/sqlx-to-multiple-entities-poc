@@ -37,6 +37,12 @@ impl From<NullableU8> for Option<u8> {
     }
 }
 
+impl From<Option<i32>> for NullableU8 {
+    fn from(value: Option<i32>) -> Self {
+        value.map(|v| v as i16).into()
+    }
+}
+
 impl From<Option<i16>> for NullableU8 {
     fn from(value: Option<i16>) -> Self {
         match value {

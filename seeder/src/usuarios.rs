@@ -1,5 +1,5 @@
 use chrono::Utc;
-use poc_core::{entidades::usuario::Usuario, enums::cargo::Cargo};
+use poc_core::{entidades::usuario::Usuario, enums::cargo::Cargo, types::NullableU8};
 use sqlx::PgConnection;
 use uuid::Uuid;
 
@@ -26,7 +26,7 @@ pub async fn inserir_usuarios(db: &mut PgConnection) -> (Usuario, Usuario, Usuar
         email: "mario@gmail.com".to_string(),
         id: Uuid::new_v4(),
         nome: "Mário".into(),
-        periodo: None.into(),
+        periodo: NullableU8::none(),
         registro_aluno: None,
         senha_hash: "123".into(),
         ultimo_login_em: None,
@@ -40,7 +40,7 @@ pub async fn inserir_usuarios(db: &mut PgConnection) -> (Usuario, Usuario, Usuar
         email: "sara@gmail.com".to_string(),
         id: Uuid::new_v4(),
         nome: "Sara".into(),
-        periodo: None.into(),
+        periodo: NullableU8::none(),
         registro_aluno: None,
         senha_hash: "123".into(),
         ultimo_login_em: None,
